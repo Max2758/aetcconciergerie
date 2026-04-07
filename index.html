@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alison & Chantal — Conciergerie Biarritz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ===== RESET & ROOT ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2b4a;
+            --navy-dark: #0f1e35;
+            --navy-mid: #1e3256;
+            --gold: #b89b5e;
+            --gold-light: #d4b87a;
+            --cream: #f5f0e8;
+            --cream-dark: #ede6d8;
+            --white: #ffffff;
+            --text-dark: #1a2b4a;
+            --text-muted: #6b7a8d;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Jost', sans-serif;
+            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 3px;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(15, 30, 53, 0.0);
+            backdrop-filter: blur(0px);
+            transition: background var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(15, 30, 53, 0.96);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            background: rgba(184, 155, 94, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .logo-text {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold) !important;
+            padding: 0.45rem 1.25rem;
+            border-radius: 2px;
+            transition: background var(--transition), color var(--transition) !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--navy-dark) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 30, 53, 0.98);
+            backdrop-filter: blur(16px);
+            padding: 1.5rem 2rem 2rem;
+            flex-direction: column;
+            gap: 1.25rem;
+            z-index: 999;
+            border-top: 1px solid rgba(184, 155, 94, 0.2);
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: opacity var(--transition), transform var(--transition);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(184, 155, 94, 0.1);
+            transition: color var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold-light);
+        }
+
+        /* ===== HERO ===== */
+        #accueil {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-parallax-bg {
+            position: absolute;
+            inset: -15%;
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=80');
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg,
+                    rgba(10, 20, 40, 0.78) 0%,
+                    rgba(15, 30, 53, 0.65) 60%,
+                    rgba(10, 20, 40, 0.85) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            animation: heroFadeIn 1.2s ease forwards;
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.6;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.05;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.85rem 2.2rem;
+            background: var(--gold);
+            color: var(--navy-dark);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            box-shadow: 0 4px 20px rgba(184, 155, 94, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(184, 155, 94, 0.45);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.85rem 2.2rem;
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: border-color var(--transition), color var(--transition), transform var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        .hero-scroll::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(184, 155, 94, 0.6), transparent);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(6px);
+            }
+        }
+
+        /* ===== SECTION BASES ===== */
+        section {
+            position: relative;
+        }
+
+        .section-label {
+            font-family: var(--font-sans);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 300;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 1.5px;
+            background: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-line.centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== À PROPOS ===== */
+        #apropos {
+            background: var(--cream);
+            padding: 7rem 2rem;
+        }
+
+        .apropos-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .apropos-text .section-title {
+            color: var(--navy);
+        }
+
+        .apropos-text p {
+            font-size: 1rem;
+            line-height: 1.85;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .apropos-text p strong {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .apropos-profiles {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border: 1px solid rgba(184, 155, 94, 0.2);
+            border-radius: 4px;
+            box-shadow: 0 4px 24px rgba(26, 43, 74, 0.06);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(26, 43, 74, 0.12);
+        }
+
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 600;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== PARALLAX BAND ===== */
+        .parallax-band {
+            position: relative;
+            height: 380px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parallax-band-bg {
+            position: absolute;
+            inset: -20%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .parallax-band-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 20, 40, 0.72);
+        }
+
+        .parallax-band-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 650px;
+        }
+
+        .parallax-band-content h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .parallax-band-content h2 em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .parallax-band-content p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== SERVICES ===== */
+        #services {
+            background: var(--navy-dark);
+            padding: 7rem 2rem;
+        }
+
+        #services .section-title {
+            color: var(--white);
+        }
+
+        .services-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .services-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5px;
+            background: rgba(184, 155, 94, 0.15);
+            border: 1px solid rgba(184, 155, 94, 0.15);
+        }
+
+        .service-card {
+            background: var(--navy);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background var(--transition);
+            cursor: default;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--gold);
+            transition: height 0.45s ease;
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-card:hover {
+            background: var(--navy-mid);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+        }
+
+        .service-card p {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.8;
+        }
+
+        .service-card ul {
+            list-style: none;
+            margin-top: 0.75rem;
+        }
+
+        .service-card ul li {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.55);
+            padding: 0.3rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .service-card ul li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 0.75rem;
+        }
+
+        /* ===== TARIFS ===== */
+        #tarifs {
+            background: var(--cream);
+            padding: 7rem 2rem;
+        }
+
+        #tarifs .section-title {
+            color: var(--navy);
+        }
+
+        .tarifs-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .tarifs-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .tarifs-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .tarif-section-title {
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border-bottom: 1px solid rgba(184, 155, 94, 0.25);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tarif-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .tarif-table thead th {
+            background: var(--navy);
+            color: var(--gold);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+
+        .tarif-table thead th:first-child {
+            border-radius: 3px 0 0 0;
+        }
+
+        .tarif-table thead th:last-child {
+            border-radius: 0 3px 0 0;
+        }
+
+        .tarif-table tbody tr {
+            border-bottom: 1px solid rgba(184, 155, 94, 0.12);
+            transition: background var(--transition);
+        }
+
+        .tarif-table tbody tr:hover {
+            background: rgba(184, 155, 94, 0.06);
+        }
+
+        .tarif-table tbody td {
+            padding: 0.9rem 1.25rem;
+            color: var(--text-dark);
+        }
+
+        .tarif-table tbody td:first-child {
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .tarif-table .price {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .tarifs-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .tarif-card {
+            background: var(--white);
+            border: 1px solid rgba(184, 155, 94, 0.2);
+            border-radius: 4px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .tarif-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(26, 43, 74, 0.12);
+        }
+
+        .tarif-card.featured {
+            background: var(--navy);
+            border-color: var(--gold);
+        }
+
+        .tarif-card-badge {
+            position: absolute;
+            top: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--navy-dark);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.85rem;
+            border-radius: 20px;
+        }
+
+        .tarif-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .tarif-card.featured h3 {
+            color: var(--gold);
+        }
+
+        .tarif-card .big-price {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1;
+            margin: 0.75rem 0 0.25rem;
+        }
+
+        .tarif-card.featured .big-price {
+            color: var(--white);
+        }
+
+        .tarif-card .price-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .tarif-card.featured .price-note {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .tarif-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .tarif-card ul li {
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            padding-left: 1.4rem;
+            position: relative;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .tarif-card.featured ul li {
+            color: rgba(255, 255, 255, 0.65);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .tarif-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        /* ===== POURQUOI NOUS ===== */
+        #pourquoi {
+            background: var(--navy-dark);
+            padding: 7rem 2rem;
+        }
+
+        #pourquoi .section-title {
+            color: var(--white);
+        }
+
+        .pourquoi-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .pourquoi-header p {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .pourquoi-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: rgba(184, 155, 94, 0.1);
+        }
+
+        .pourquoi-item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: background var(--transition);
+        }
+
+        .pourquoi-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .pourquoi-num {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(184, 155, 94, 0.1);
+            border: 1.5px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .pourquoi-text h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .pourquoi-text p {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.75;
+        }
+
+        /* ===== TEMOIGNAGES ===== */
+        #temoignages {
+            background: var(--cream);
+            padding: 7rem 2rem;
+        }
+
+        #temoignages .section-title {
+            color: var(--navy);
+        }
+
+        .temoignages-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .temoignages-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .temoignage-card {
+            background: var(--white);
+            border: 1px solid rgba(184, 155, 94, 0.15);
+            border-top: 3px solid var(--gold);
+            border-radius: 4px;
+            padding: 2rem;
+            position: relative;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .temoignage-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(26, 43, 74, 0.1);
+        }
+
+        .quote-mark {
+            font-family: Georgia, serif;
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.25;
+            line-height: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .temoignage-card p {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--navy);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .temoignage-author {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        /* ===== FAQ ===== */
+        #faq {
+            background: var(--navy-dark);
+            padding: 7rem 2rem;
+        }
+
+        #faq .section-title {
+            color: var(--white);
+        }
+
+        .faq-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .faq-header p {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .faq-list {
+            max-width: 750px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(184, 155, 94, 0.12);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background var(--transition);
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .faq-question span {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            color: var(--white);
+            font-weight: 400;
+            flex: 1;
+            padding-right: 1rem;
+        }
+
+        .faq-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(184, 155, 94, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform var(--transition), background var(--transition);
+        }
+
+        .faq-icon svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 2;
+            transition: transform var(--transition);
+        }
+
+        .faq-item.open .faq-icon {
+            background: var(--gold);
+        }
+
+        .faq-item.open .faq-icon svg {
+            stroke: var(--navy-dark);
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-answer p {
+            padding: 0 0 1.25rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.8;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            position: relative;
+            padding: 7rem 2rem;
+            overflow: hidden;
+        }
+
+        .contact-parallax-bg {
+            position: absolute;
+            inset: -15%;
+            background-image: url('https://images.unsplash.com/photo-1504173010664-32509107083a?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        .contact-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 20, 40, 0.9) 0%, rgba(15, 30, 53, 0.85) 100%);
+        }
+
+        .contact-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info .section-title {
+            color: var(--white);
+        }
+
+        .contact-info>p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(184, 155, 94, 0.12);
+        }
+
+        .contact-detail:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(184, 155, 94, 0.12);
+            border: 1px solid rgba(184, 155, 94, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .contact-detail-info span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-detail-info a,
+        .contact-detail-info p {
+            font-size: 0.92rem;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .contact-detail-info a:hover {
+            color: var(--gold-light);
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(184, 155, 94, 0.15);
+            border-radius: 4px;
+            padding: 2rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(184, 155, 94, 0.2);
+            border-radius: 2px;
+            color: var(--white);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: border-color var(--transition), background var(--transition);
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .form-group select option {
+            background: var(--navy-dark);
+            color: var(--white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--gold);
+            color: var(--navy-dark);
+            border: none;
+            border-radius: 2px;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition);
+        }
+
+        .form-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #070f1e;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(184, 155, 94, 0.15);
+        }
+
+        footer .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        footer p {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.08em;
+        }
+
+        footer .footer-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.3;
+            margin: 0.75rem auto;
+        }
+
+        /* ===== REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .apropos-inner {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tarifs-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .pourquoi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .temoignages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-inner {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+
+            .tarif-table {
+                font-size: 0.8rem;
+            }
+
+            .tarif-table thead th,
+            .tarif-table tbody td {
+                padding: 0.7rem 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+        <a href="#accueil" class="nav-logo">
+            <div class="logo-badge">A&C</div>
+            <span class="logo-text">Alison & Chantal</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#tarifs">Tarifs</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#accueil" onclick="closeMenu()">Accueil</a>
+        <a href="#services" onclick="closeMenu()">Services</a>
+        <a href="#tarifs" onclick="closeMenu()">Tarifs</a>
+        <a href="#apropos" onclick="closeMenu()">À propos</a>
+        <a href="#faq" onclick="closeMenu()">FAQ</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section id="accueil">
+        <div class="hero-parallax-bg" data-parallax="0.4"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Biarritz · Côte Basque</div>
+            <h1 class="hero-title">Alison <em>&</em> Chantal</h1>
+            <div class="hero-subtitle">Conciergerie</div>
+            <div class="hero-divider"></div>
+            <p class="hero-tagline">Votre vie, magnifiée.</p>
+            <div class="hero-btns">
+                <a href="#services" class="btn-primary">Découvrir nos services</a>
+                <a href="#contact" class="btn-secondary">Nous contacter</a>
+            </div>
+        </div>
+        <div class="hero-scroll">Scroll</div>
+    </section>
+
+    <!-- ===== À PROPOS ===== -->
+    <section id="apropos">
+        <div class="apropos-inner">
+            <div class="apropos-text reveal">
+                <p class="section-label">Qui sommes-nous ?</p>
+                <h2 class="section-title">Une conciergerie <em>d'exception</em></h2>
+                <div class="section-line"></div>
+                <p>Passionnées par <strong>Biarritz et son art de vivre</strong>, Alison et Chantal unissent leur
+                    expertise pour vous offrir un service de conciergerie sur mesure.</p>
+                <p>Discrètes, réactives et dévouées, elles font de chaque détail une priorité. Que vous soyez
+                    propriétaire d'un bien ou voyageur en quête d'une expérience inoubliable, votre satisfaction est
+                    leur unique mission.</p>
+                <p>Disponibles <strong>7 jours sur 7</strong>, elles mettent à votre service leur connaissance intime de
+                    la côte basque : les meilleures tables, les artisans de confiance, les adresses secrètes.</p>
+            </div>
+            <div class="apropos-profiles">
+                <div class="profile-card reveal reveal-delay-1">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-info">
+                        <h3>Alison</h3>
+                        <p>Co-fondatrice, experte en gestion de résidences et services personnalisés sur la Côte Basque.
+                        </p>
+                    </div>
+                </div>
+                <div class="profile-card reveal reveal-delay-2">
+                    <div class="profile-avatar">C</div>
+                    <div class="profile-info">
+                        <h3>Chantal</h3>
+                        <p>Co-fondatrice, spécialiste en organisation d'événements et assistance voyageurs à Biarritz.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PARALLAX BAND 1 ===== -->
+    <div class="parallax-band">
+        <div class="parallax-band-bg" data-parallax="0.3"
+            style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')">
+        </div>
+        <div class="parallax-band-overlay"></div>
+        <div class="parallax-band-content">
+            <h2>Chaque séjour mérite d'être <em>parfait</em></h2>
+            <p>De l'arrivée de vos hôtes jusqu'à leur départ, nous gérons tout avec soin et excellence.</p>
+        </div>
+    </div>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services">
+        <div class="services-header reveal">
+            <p class="section-label">Ce que nous proposons</p>
+            <h2 class="section-title" style="color:var(--white)">Nos Services</h2>
+            <div class="section-line centered"></div>
+            <p>Une offre complète pour propriétaires et voyageurs, adaptée à chaque besoin.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">🏠</div>
+                <h3>Gestion de résidences</h3>
+                <p>Nous prenons en charge la gestion complète de votre bien pour des locations saisonnières sans stress.
+                </p>
+                <ul>
+                    <li>Remise et récupération des clés</li>
+                    <li>État des lieux entrant & sortant</li>
+                    <li>Accueil personnalisé de vos hôtes</li>
+                    <li>Gestion des annonces & suivi</li>
+                </ul>
+            </div>
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-icon">✈️</div>
+                <h3>Assistance voyageurs</h3>
+                <p>De l'arrivée à l'aéroport aux recommandations les plus exclusives, nous accompagnons vos hôtes.</p>
+                <ul>
+                    <li>Transferts depuis l'aéroport ou la gare</li>
+                    <li>Réservations restaurants & activités</li>
+                    <li>Recommandations locales exclusives</li>
+                    <li>Assistance 7j/7 pendant le séjour</li>
+                </ul>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-icon">🌿</div>
+                <h3>Services à domicile</h3>
+                <p>Tout ce qu'il faut pour que votre logement soit impeccable à chaque rotation.</p>
+                <ul>
+                    <li>Ménage complet après chaque départ</li>
+                    <li>Gestion du linge (lavage & repassage)</li>
+                    <li>Fleurs & décoration d'accueil</li>
+                    <li>Courses & préparation du logement</li>
+                </ul>
+            </div>
+            <div class="service-card reveal reveal-delay-3">
+                <div class="service-icon">🎉</div>
+                <h3>Événements & surprises</h3>
+                <p>Anniversaires, dîners romantiques, séminaires… Nous orchestrons chaque célébration sur mesure.</p>
+                <ul>
+                    <li>Organisation de mariages & anniversaires</li>
+                    <li>Dîners & expériences gastronomiques</li>
+                    <li>Séminaires d'entreprise</li>
+                    <li>Surprises & moments inoubliables</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TARIFS ===== -->
+    <section id="tarifs">
+        <div class="tarifs-header reveal">
+            <p class="section-label">Transparence & clarté</p>
+            <h2 class="section-title">Nos Tarifs</h2>
+            <div class="section-line centered"></div>
+            <p>Des tarifs clairs et adaptés à chaque type de bien. Ménage par rotation — prix par prestation.</p>
+        </div>
+        <div class="tarifs-wrapper">
+
+            <!-- Ménage -->
+            <div class="reveal">
+                <div class="tarif-section-title">Ménage par rotation</div>
+                <div style="overflow-x:auto">
+                    <table class="tarif-table">
+                        <thead>
+                            <tr>
+                                <th>Type de bien</th>
+                                <th>Ménage seul</th>
+                                <th>Ménage + linge</th>
+                                <th>Ménage + linge + check-in/out</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Studio / T1 (jusqu'à 30m²)</td>
+                                <td class="price">45 – 60 €</td>
+                                <td class="price">65 – 80 €</td>
+                                <td class="price">80 – 100 €</td>
+                            </tr>
+                            <tr>
+                                <td>T2 (30 à 50m²)</td>
+                                <td class="price">60 – 80 €</td>
+                                <td class="price">85 – 110 €</td>
+                                <td class="price">100 – 130 €</td>
+                            </tr>
+                            <tr>
+                                <td>T3 (50 à 80m²)</td>
+                                <td class="price">80 – 110 €</td>
+                                <td class="price">110 – 140 €</td>
+                                <td class="price">130 – 160 €</td>
+                            </tr>
+                            <tr>
+                                <td>T4 / Maison (80 à 120m²)</td>
+                                <td class="price">110 – 150 €</td>
+                                <td class="price">150 – 190 €</td>
+                                <td class="price">170 – 220 €</td>
+                            </tr>
+                            <tr>
+                                <td>Grande villa (120m²+)</td>
+                                <td class="price">150 – 250 €</td>
+                                <td class="price">200 – 300 €</td>
+                                <td class="price" style="color:var(--gold)">Sur devis ✦</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formules gestion -->
+            <div class="reveal">
+                <div class="tarif-section-title">Formules de gestion complète</div>
+                <div class="tarifs-cards">
+                    <div class="tarif-card">
+                        <h3>Gestion partielle</h3>
+                        <div class="big-price">10–15<span style="font-size:1.5rem">%</span></div>
+                        <div class="price-note">du loyer • rotations uniquement</div>
+                        <ul>
+                            <li>Ménage entre les séjours</li>
+                            <li>Gestion du linge</li>
+                            <li>Check-in / Check-out</li>
+                        </ul>
+                    </div>
+                    <div class="tarif-card featured">
+                        <div class="tarif-card-badge">★ Le plus populaire</div>
+                        <h3>Gestion complète</h3>
+                        <div class="big-price">18–25<span style="font-size:1.5rem">%</span></div>
+                        <div class="price-note">du loyer • annonces + rotations + suivi</div>
+                        <ul>
+                            <li>Gestion des annonces</li>
+                            <li>Rotations & ménage</li>
+                            <li>Suivi continu</li>
+                            <li>Rapport mensuel</li>
+                        </ul>
+                    </div>
+                    <div class="tarif-card">
+                        <h3>Gestion premium</h3>
+                        <div class="big-price">25–30<span style="font-size:1.5rem">%</span></div>
+                        <div class="price-note">du loyer • tout inclus</div>
+                        <ul>
+                            <li>Photos professionnelles</li>
+                            <li>Optimisation tarifaire</li>
+                            <li>Tout service inclus</li>
+                            <li>Accompagnement dédié</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forfait mensuel -->
+            <div class="reveal">
+                <div class="tarif-section-title">Forfait mensuel hors saison — Surveillance</div>
+                <table class="tarif-table">
+                    <thead>
+                        <tr>
+                            <th>Prestation</th>
+                            <th>Prix / mois</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Visite contrôle 1x/mois + rapport photo</td>
+                            <td class="price">50 – 80 €</td>
+                        </tr>
+                        <tr>
+                            <td>Visite 2x/mois + aération + relevé courrier</td>
+                            <td class="price">80 – 120 €</td>
+                        </tr>
+                        <tr>
+                            <td>Surveillance complète + petite maintenance</td>
+                            <td class="price">120 – 200 €</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== PARALLAX BAND 2 ===== -->
+    <div class="parallax-band">
+        <div class="parallax-band-bg" data-parallax="0.3"
+            style="background-image: url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1600&q=80')">
+        </div>
+        <div class="parallax-band-overlay"></div>
+        <div class="parallax-band-content">
+            <h2>Forfait <em>Départ & Arrivée</em></h2>
+            <p style="color:rgba(255,255,255,0.85);font-family:var(--font-serif);font-size:1.8rem;margin-bottom:0.5rem">
+                1 000 € <span style="font-size:1rem;color:rgba(255,255,255,0.5)">/mois — sans engagement</span></p>
+            <p>Ménage complet · Linge · Accueil hôtes · Check-in/out · Tout compris, sans souci.</p>
+        </div>
+    </div>
+
+    <!-- ===== POURQUOI NOUS ===== -->
+    <section id="pourquoi">
+        <div class="pourquoi-header reveal">
+            <p class="section-label">Nos engagements</p>
+            <h2 class="section-title">Pourquoi nous choisir ?</h2>
+            <div class="section-line centered"></div>
+            <p>Quatre valeurs fondamentales qui guident chacune de nos prestations.</p>
+        </div>
+        <div class="pourquoi-grid">
+            <div class="pourquoi-item reveal">
+                <div class="pourquoi-num">01</div>
+                <div class="pourquoi-text">
+                    <h3>Disponibilité 7j/7</h3>
+                    <p>Nous sommes présentes à toute heure, 365 jours par an. Une urgence ? Un imprévu ? Nous répondons
+                        toujours.</p>
+                </div>
+            </div>
+            <div class="pourquoi-item reveal reveal-delay-1">
+                <div class="pourquoi-num">02</div>
+                <div class="pourquoi-text">
+                    <h3>Expertise locale</h3>
+                    <p>Biarritz n'a aucun secret pour nous. Restos, artisans, bonnes adresses — nous partageons notre
+                        carnet de notes.</p>
+                </div>
+            </div>
+            <div class="pourquoi-item reveal reveal-delay-2">
+                <div class="pourquoi-num">03</div>
+                <div class="pourquoi-text">
+                    <h3>Service sur mesure</h3>
+                    <p>Chaque client est unique. Nous adaptons chaque prestation à vos besoins spécifiques et à votre
+                        style de vie.</p>
+                </div>
+            </div>
+            <div class="pourquoi-item reveal reveal-delay-3">
+                <div class="pourquoi-num">04</div>
+                <div class="pourquoi-text">
+                    <h3>Discrétion absolue</h3>
+                    <p>Confidentialité et professionnalisme sont notre signature. Vos données et votre vie privée sont
+                        entre de bonnes mains.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TEMOIGNAGES ===== -->
+    <section id="temoignages">
+        <div class="temoignages-header reveal">
+            <p class="section-label">Ils nous font confiance</p>
+            <h2 class="section-title">Avis clients</h2>
+            <div class="section-line centered"></div>
+        </div>
+        <div class="temoignages-grid">
+            <div class="temoignage-card reveal">
+                <div class="quote-mark">"</div>
+                <p>Un service exceptionnel. Alison a tout géré à distance, notre appartement était parfait à notre
+                    arrivée.</p>
+                <div class="temoignage-author">— Sophie M., Paris</div>
+            </div>
+            <div class="temoignage-card reveal reveal-delay-1">
+                <div class="quote-mark">"</div>
+                <p>Chantal a organisé notre anniversaire de mariage à Biarritz — une soirée magique et inoubliable !</p>
+                <div class="temoignage-author">— Pierre & Laura, Bordeaux</div>
+            </div>
+            <div class="temoignage-card reveal reveal-delay-2">
+                <div class="quote-mark">"</div>
+                <p>Réactives, professionnelles, discrètes. Je recommande les yeux fermés, sans la moindre hésitation.
+                </p>
+                <div class="temoignage-author">— Thomas K., Londres</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq">
+        <div class="faq-header reveal">
+            <p class="section-label">Questions fréquentes</p>
+            <h2 class="section-title">FAQ</h2>
+            <div class="section-line centered"></div>
+            <p>Retrouvez les réponses aux questions les plus souvent posées.</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Dans quelles zones intervenez-vous ?</span>
+                    <div class="faq-icon"><svg viewBox="0 0 12 12">
+                            <line x1="6" y1="1" x2="6" y2="11" />
+                            <line x1="1" y1="6" x2="11" y2="6" />
+                        </svg></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Nous intervenons principalement à Biarritz et ses environs, sur toute la Côte Basque : Anglet,
+                        Bayonne, Bidart, Guéthary, Saint-Jean-de-Luz, ainsi que Hossegor côté Landes. N'hésitez pas à
+                        nous contacter pour une zone spécifique.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Proposez-vous des services hors saison estivale ?</span>
+                    <div class="faq-icon"><svg viewBox="0 0 12 12">
+                            <line x1="6" y1="1" x2="6" y2="11" />
+                            <line x1="1" y1="6" x2="11" y2="6" />
+                        </svg></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Oui, tout à fait. En dehors de la saison estivale, nous proposons des forfaits de surveillance
+                        mensuelle pour garder un œil sur votre bien : visites de contrôle, rapport photo, aération,
+                        relevé de courrier et petites maintenances.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment fonctionne le forfait propriétaire à 1 000 € / mois ?</span>
+                    <div class="faq-icon"><svg viewBox="0 0 12 12">
+                            <line x1="6" y1="1" x2="6" y2="11" />
+                            <line x1="1" y1="6" x2="11" y2="6" />
+                        </svg></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Ce forfait "tout compris, sans engagement" inclut le ménage complet à chaque rotation, la gestion
+                        du linge (lavage & repassage), l'accueil chaleureux de vos hôtes et la gestion des clés. Idéal
+                        pour les propriétaires souhaitant déléguer 100% de la gestion opérationnelle.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Êtes-vous une entreprise enregistrée ?</span>
+                    <div class="faq-icon"><svg viewBox="0 0 12 12">
+                            <line x1="6" y1="1" x2="6" y2="11" />
+                            <line x1="1" y1="6" x2="11" y2="6" />
+                        </svg></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Oui, Alison & Chantal Conciergerie est une entreprise officiellement enregistrée, basée à
+                        Biarritz (64200). Notre numéro SIRET est disponible sur demande. Nous fournissons des factures
+                        pour chaque prestation.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment obtenir un devis pour un événement ou une grande villa ?</span>
+                    <div class="faq-icon"><svg viewBox="0 0 12 12">
+                            <line x1="6" y1="1" x2="6" y2="11" />
+                            <line x1="1" y1="6" x2="11" y2="6" />
+                        </svg></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Pour les événements (mariages, anniversaires, séminaires) et les grandes villas de 120m²+, nous
+                        réalisons une étude personnalisée gratuite. Contactez-nous via le formulaire ci-dessous ou par
+                        téléphone et nous vous répondons sous 24h.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    <span>Peut-on tester vos services sans engagement ?</span>
+                    <div class="faq-icon"><svg viewBox="0 0 12 12">
+                            <line x1="6" y1="1" x2="6" y2="11" />
+                            <line x1="1" y1="6" x2="11" y2="6" />
+                        </svg></div>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolument. Notre forfait Départ & Arrivée est proposé sans engagement. Vous pouvez également
+                        faire appel à nos services à la prestation, sans abonnement. N'hésitez pas à nous contacter pour
+                        démarrer dès votre première rotation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+        <div class="contact-parallax-bg" data-parallax="0.35"></div>
+        <div class="contact-overlay"></div>
+        <div class="contact-inner">
+            <div class="contact-info reveal">
+                <p class="section-label">Parlons de votre projet</p>
+                <h2 class="section-title">Contactez-nous</h2>
+                <div class="section-line"></div>
+                <p>Vous avez un bien à gérer, un séjour à organiser ou un événement à préparer ? Écrivez-nous, nous vous
+                    répondons sous 24 heures.</p>
+                <div class="contact-detail">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-detail-info">
+                        <span>Téléphone</span>
+                        <a href="tel:+33648288885">+33 6 48 28 88 85</a>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-detail-info">
+                        <span>Email</span>
+                        <a href="mailto:aconciergerie64@gmail.com">aconciergerie64@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-detail-info">
+                        <span>Adresse</span>
+                        <p>Biarritz, 64200 — Côte Basque</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form reveal reveal-delay-2">
+                <div class="form-group">
+                    <label>Votre nom</label>
+                    <input type="text" placeholder="Prénom & Nom" />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="votre@email.com" />
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" placeholder="+33 6 00 00 00 00" />
+                </div>
+                <div class="form-group">
+                    <label>Service souhaité</label>
+                    <select>
+                        <option value="">Sélectionner un service...</option>
+                        <option>Gestion de résidence</option>
+                        <option>Assistance voyageurs</option>
+                        <option>Services à domicile</option>
+                        <option>Événement & surprise</option>
+                        <option>Forfait propriétaire</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea placeholder="Décrivez votre projet..."></textarea>
+                </div>
+                <button class="form-btn" onclick="handleSubmit(event)">Envoyer ma demande</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="footer-logo">Alison & Chantal — Conciergerie</div>
+        <div class="footer-divider"></div>
+        <p>Biarritz, Côte Basque · aconciergerie64@gmail.com · +33 6 48 28 88 85</p>
+        <p style="margin-top:0.5rem">Entreprise enregistrée — SIRET disponible sur demande · © 2025</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ── Navbar scroll ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── Hamburger / mobile menu ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+
+        function closeMenu() {
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+        });
+
+        // ── Parallax effect ──
+        function updateParallax() {
+            const scrollY = window.scrollY;
+            document.querySelectorAll('[data-parallax]').forEach(el => {
+                const speed = parseFloat(el.dataset.parallax) || 0.3;
+                const rect = el.parentElement.getBoundingClientRect();
+                const centerY = rect.top + rect.height / 2 - window.innerHeight / 2;
+                el.style.transform = `translateY(${centerY * speed}px)`;
+            });
+        }
+
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        updateParallax();
+
+        // ── Reveal on scroll ──
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // ── FAQ accordion ──
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+
+        // ── Contact form ──
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target;
+            btn.textContent = '✓ Message envoyé !';
+            btn.style.background = '#2d6a4f';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.textContent = 'Envoyer ma demande';
+                btn.style.background = '';
+                btn.style.color = '';
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
