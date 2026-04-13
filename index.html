@@ -78,9 +78,18 @@
         }
 
         nav.scrolled {
-            background: rgba(15, 30, 53, 0.96);
+            background: var(--cream);
             backdrop-filter: blur(12px);
             box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        nav.scrolled .mobile-menu a,
+        nav.scrolled .nav-links a {
+            color: var(--navy);
+        }
+
+        nav.scrolled .logo-text {
+            color: var(--navy);
         }
 
         .nav-logo {
@@ -88,22 +97,6 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-        }
-
-        .logo-badge {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1.5px solid var(--gold);
-            background: rgba(184, 155, 94, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-serif);
-            font-size: 0.9rem;
-            color: var(--gold);
-            font-weight: 600;
-            letter-spacing: 0.02em;
         }
 
         .logo-text {
@@ -917,6 +910,34 @@
             font-size: 0.75rem;
         }
 
+        .opts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .opt-card {
+            background: #fff;
+            border: 0.5px solid var(--border-color, #d6cfc0);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .opt-card-icon {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .tarif-note {
+            font-size: 16px;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 1.5rem;
+        }
+
         /* ===== POURQUOI NOUS ===== */
         #pourquoi {
             background: var(--navy-dark);
@@ -1464,7 +1485,7 @@
     <!-- ===== NAVBAR ===== -->
     <nav id="navbar">
         <a href="#accueil" class="nav-logo">
-            <div class="logo-badge">A&C</div>
+            <img src="logoconciergerie.png" alt="A&C Conciergerie" style="height: 55px; width: auto;">
             <span class="logo-text">Alison & Chantal</span>
         </a>
         <ul class="nav-links">
@@ -1638,33 +1659,33 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Studio / T1 (jusqu'à 30m²)</td>
+                                <td>Studio / T1 (jusqu'à 40m²)</td>
                                 <td class="price">45 – 60 €</td>
                                 <td class="price">65 – 80 €</td>
                                 <td class="price">80 – 100 €</td>
                             </tr>
                             <tr>
-                                <td>T2 (30 à 50m²)</td>
-                                <td class="price">60 – 80 €</td>
-                                <td class="price">85 – 110 €</td>
-                                <td class="price">100 – 130 €</td>
+                                <td>T2 (40 à 50m²)</td>
+                                <td class="price">70 – 90 €</td>
+                                <td class="price">95 – 160 €</td>
+                                <td class="price">100 – 185 €</td>
                             </tr>
                             <tr>
                                 <td>T3 (50 à 80m²)</td>
-                                <td class="price">80 – 110 €</td>
-                                <td class="price">110 – 140 €</td>
-                                <td class="price">130 – 160 €</td>
+                                <td class="price">90 – 120 €</td>
+                                <td class="price">105 – 190 €</td>
+                                <td class="price">115 – 215 €</td>
                             </tr>
                             <tr>
                                 <td>T4 / Maison (80 à 120m²)</td>
-                                <td class="price">110 – 150 €</td>
-                                <td class="price">150 – 190 €</td>
-                                <td class="price">170 – 220 €</td>
+                                <td class="price">110 – 140 €</td>
+                                <td class="price">125 – 210 €</td>
+                                <td class="price">135 – 235 €</td>
                             </tr>
                             <tr>
                                 <td>Grande villa (120m²+)</td>
-                                <td class="price">150 – 250 €</td>
-                                <td class="price">200 – 300 €</td>
+                                <td class="price">140 – 200 €</td>
+                                <td class="price">155 – 270 €</td>
                                 <td class="price" style="color:var(--gold)">Sur devis ✦</td>
                             </tr>
                         </tbody>
@@ -1739,8 +1760,80 @@
                 </table>
             </div>
 
+            <!-- Options & Suppléments -->
+            <div class="reveal">
+                <div class="tarif-section-title">Options & Suppléments — Détail des écarts de prix</div>
+                <div class="opts-grid">
+
+                    <div class="opt-card">
+                        <div class="opt-card-icon">+ LINGE</div>
+                        <h4>Kit linge (en supplément)</h4>
+                        <p>Fourni propre, repassé et plié. Tarif par unité ajouté au forfait ménage.</p>
+                        <table class="tarif-table">
+                            <tr>
+                                <td>Kit lit simple</td>
+                                <td class="price">10 €</td>
+                            </tr>
+                            <tr>
+                                <td>Kit lit double</td>
+                                <td class="price">15 €</td>
+                            </tr>
+                            <tr>
+                                <td>Serviettes</td>
+                                <td class="price">5 € / personne</td>
+                            </tr>
+                            <tr>
+                                <td>Pack complet</td>
+                                <td class="price">15 – 70 €</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="opt-card">
+                        <div class="opt-card-icon">+ CHECK-IN / CHECK-OUT</div>
+                        <h4>Accueil & remise des clés</h4>
+                        <p>Accueil personnalisé des voyageurs, remise des clés et état des lieux rapide.</p>
+                        <p class="price">10 – 25 €</p>
+                    </div>
+
+                    <div class="opt-card">
+                        <div class="opt-card-icon">+ URGENCE</div>
+                        <h4>Intervention urgente</h4>
+                        <p>Demande reçue moins de 24h avant le début du séjour.</p>
+                        <p class="price">+ 15 €</p>
+                    </div>
+
+                    <div class="opt-card">
+                        <div class="opt-card-icon">+ GRAND MÉNAGE</div>
+                        <h4>Ménage approfondi</h4>
+                        <p>Nettoyage complet début/fin de saison — placards, four, vitres.</p>
+                        <p class="price">+ 30 – 80 €</p>
+                    </div>
+
+                    <div class="opt-card">
+                        <div class="opt-card-icon">+ DÉPLACEMENT</div>
+                        <h4>Frais de déplacement</h4>
+                        <p>Selon distance au-delà de la zone habituelle d'intervention.</p>
+                        <p class="price"> + 5 – 15 €</p>
+                    </div>
+
+                    <div class="opt-card">
+                        <div class="opt-card-icon">+ LOCAUX PRO</div>
+                        <h4>Locaux professionnels</h4>
+                        <p>Bureaux, commerces, cabinets. Tarif horaire ou au m².</p>
+                        <p class="price">+ 25 – 35 € / h · ou 2 – 5 € / m²</p>
+                    </div>
+
+                </div>
+                <p class="tarif-note">✦ Les écarts de prix dans le tableau principal reflètent la combinaison de ces
+                    options
+                    selon le forfait choisi.</p>
+            </div>
+
         </div>
+
     </section>
+
 
     <!-- ===== PARALLAX BAND 2 ===== -->
     <div class="parallax-band">
@@ -2074,7 +2167,20 @@
                 btn.style.color = '';
             }, 3000);
         }
+
+        function envoyerFormulaire() {
+            emailjs.send("VOTRE_SERVICE_ID", "VOTRE_TEMPLATE_ID", {
+                nom: document.getElementById("nom").value,
+                email: document.getElementById("email").value,
+                telephone: document.getElementById("telephone").value,
+                service: document.getElementById("service").value,
+                message: document.getElementById("message").value,
+            })
+                .then(() => alert("Message envoyé ! Nous vous répondons sous 24h."))
+                .catch(() => alert("Une erreur s'est produite, veuillez réessayer."));
+        }
     </script>
+
 </body>
 
 </html>
