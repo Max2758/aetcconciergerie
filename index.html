@@ -1930,7 +1930,7 @@
                 <div class="contact-detail">
                     <div class="contact-detail-info">
                         <span>Email</span>
-                        <a href="mailto:aconciergerie64@gmail.com">aetcconciergerie64@gmail.com</a>
+                        <a href="mailto:aetcconciergerie64@gmail.com">aetcconciergerie64@gmail.com</a>
                     </div>
                 </div>
                 <div class="contact-detail">
@@ -1940,37 +1940,44 @@
                     </div>
                 </div>
             </div>
-            <div class="contact-form reveal reveal-delay-2">
+
+            <form class="contact-form reveal reveal-delay-2" action="https://api.web3forms.com/submit" method="POST">
+
+                <input type="hidden" name="access_key" value="b9cdaa14-ae5e-4d95-b922-6335fafea0ac">
+                <input type="hidden" name="subject" value="Nouvelle demande — A&C Conciergerie">
+                <input type="hidden" name="redirect" value="https://aetcconciergerie.vercel.app">
+
                 <div class="form-group">
-                    <label>Votre nom</label>
-                    <input type="text" placeholder="Prénom & Nom" />
+                    <label>Nom et prénom</label>
+                    <input type="text" name="name" placeholder="Prénom & Nom" required />
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" placeholder="votre@email.com" />
+                    <input type="email" name="email" placeholder="votre@email.com" required />
                 </div>
                 <div class="form-group">
                     <label>Téléphone</label>
-                    <input type="tel" placeholder="+33 6 00 00 00 00" />
+                    <input type="tel" name="telephone" placeholder="+33 6 00 00 00 00" />
                 </div>
                 <div class="form-group">
                     <label>Service souhaité</label>
-                    <select>
+                    <select name="service">
                         <option value="">Sélectionner un service...</option>
                         <option>Gestion de résidence</option>
                         <option>Assistance voyageurs</option>
                         <option>Services à domicile</option>
                         <option>Événement & surprise</option>
                         <option>Forfait propriétaire</option>
-                        <option>Autre</option>
+                        <option>Autre - Veuillez préciser</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea placeholder="Décrivez votre projet..."></textarea>
+                    <textarea name="message" placeholder="Décrivez votre projet..." required></textarea>
                 </div>
-                <button class="form-btn" onclick="handleSubmit(event)">Envoyer ma demande</button>
-            </div>
+                <button type="submit" class="form-btn">Envoyer ma demande</button>
+            </form>
+
         </div>
     </section>
 
