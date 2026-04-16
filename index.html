@@ -247,11 +247,17 @@
 
         .hero-parallax-bg {
             position: absolute;
-            inset: -15%;
-            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=80');
+            inset: 0;
+            background-image: url("image-biarritz.jpg");
             background-size: cover;
             background-position: center;
-            will-change: transform;
+            background-repeat: no-repeat;
+        }
+
+        .hero img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
         }
 
         .hero-overlay {
@@ -259,8 +265,9 @@
             inset: 0;
             background: linear-gradient(160deg,
                     rgba(10, 20, 40, 0.78) 0%,
-                    rgba(15, 30, 53, 0.65) 60%,
-                    rgba(10, 20, 40, 0.85) 100%);
+                    rgba(15, 30, 53, 0.65) 50%,
+                    rgba(10, 20, 40, 0.85) 100%
+            );
         }
 
         .hero-content {
@@ -2027,7 +2034,7 @@
 
         reveals.forEach(el => observer.observe(el));
 
-        // ── FAQ accordion ──
+        // ── FAQ ──
         function toggleFaq(btn) {
             const item = btn.parentElement;
             const isOpen = item.classList.contains('open');
